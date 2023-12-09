@@ -18,6 +18,8 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "unify": "npx prisma-multischema && npx prisma generate",
     "migrate": "npx prisma migrate dev"
   }

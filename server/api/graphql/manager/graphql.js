@@ -1,7 +1,8 @@
-const userSchema = require('./manager/users/schemas/users');
-const userResolver = require('./manager/users/resolvers/createUser');
+const userSchema = require('./users/schemas/users');
+const userCreate = require('./users/resolvers/createUser');
+const userLogin = require('./users/resolvers/loginUser');
 
 module.exports = {
   schemas: [userSchema],
-  resolvers: [userResolver]
+  resolvers: [userCreate, userLogin]
 };
