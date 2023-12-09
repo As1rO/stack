@@ -19,6 +19,6 @@
   },
   "scripts": {
     "unify": "npx prisma-multischema && npx prisma generate",
-    "migrate" : "npx prisma migrate dev"
+    "migrate": "npx prisma migrate dev"
   }
 }
