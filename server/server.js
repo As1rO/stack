@@ -1,18 +1,12 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { schemas, resolvers } = require('./api/graphql/manager/graphql');
-const { checkAuth } = require('./middlewares/authMiddleware');
 
 async function startServer() {
   const app = express();
   const server = new ApolloServer({ 
     typeDefs: schemas, 
-    resolvers,
-    context: ({ req }) => {
-      // Verify user authentication
-      const user = checkAuth(req);
-      return { user };
-    }
+    resolvers
   });
 
   await server.start();

@@ -1,5 +1,6 @@
 const { defaultFieldResolver, GraphQLDirective, DirectiveLocation, GraphQLSchema } = require('graphql');
 const { SchemaDirectiveVisitor } = require('apollo-server-express');
+const { checkAuth } = require('../../middlewares/authMiddleware');
 
 class AuthDirective extends SchemaDirectiveVisitor {
   visitFieldDefinition(field) {
