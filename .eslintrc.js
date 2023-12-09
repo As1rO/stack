@@ -11,7 +11,13 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
+  extends: [
+    'prettier'
+  ],
   plugins: ['prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+  },
   settings: {
     'import/resolver': {
       alias: {
