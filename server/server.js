@@ -1,10 +1,10 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const { schemas, resolvers } = require('./api/graphql/manager/graphql');
 
 const app = express();
 
-const server = new ApolloServer({ 
-});
+const server = new ApolloServer({ typeDefs: schemas, resolvers });
 
 server.applyMiddleware({ app });
 
