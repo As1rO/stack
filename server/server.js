@@ -1,10 +1,12 @@
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer');
+const { GraphQLError } = require('graphql');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const { schemas, resolvers } = require('./api/graphql/manager/graphql');
+const { checkAuth } = require('./middlewares/authMiddleware');
 
 async function startApolloServer() {
   const app = express();
@@ -24,12 +26,23 @@ async function startApolloServer() {
     cors(),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }) => {
-        const token = req.headers.token;
-        return { token };
-      },
-    }),
-  );
+    context: async ({ req }) => {
+
+      const user = checkAuth(req);
+
+      if (!user) {
+        throw new GraphQLError('User is not authenticated', {
+          extensions: {
+            code: 'UNAUTHENTICATED',
+            http: { status: 401 },
+          },
+        });
+      }
+
+      return {user}
+    },
+  })
+);
 
   await new Promise(resolve => httpServer.listen({ port: 4000 }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000/graphql`);
