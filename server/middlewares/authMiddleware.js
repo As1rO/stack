@@ -6,20 +6,20 @@ function checkAuth(req) {
   const authorization = req.headers.authorization || '';
 
   if (!authorization) {
-    throw new Error('Authorization header not found');
+     return null;
   }
 
   const token = authorization.split(' ')[1];
 
   if (!token) {
-    throw new Error('Token not found');
+     return null;
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded; 
   } catch (error) {
-    throw new Error('Invalid token');
+    return null;
   }
 }
 

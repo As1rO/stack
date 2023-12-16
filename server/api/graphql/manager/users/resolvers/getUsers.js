@@ -3,8 +3,13 @@ const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return await prisma.user.findMany();
+    users:  async (parent, args, context) => {
+
+    if (!context.user) {
+        throw new Error('unauthenticated');
+    }
+
+    return await prisma.user.findMany();
     },
   },
 };

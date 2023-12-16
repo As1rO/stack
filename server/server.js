@@ -1,7 +1,6 @@
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer');
-const { GraphQLError } = require('graphql');
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
@@ -29,15 +28,6 @@ async function startApolloServer() {
     context: async ({ req }) => {
 
       const user = checkAuth(req);
-
-      if (!user) {
-        throw new GraphQLError('User is not authenticated', {
-          extensions: {
-            code: 'UNAUTHENTICATED',
-            http: { status: 401 },
-          },
-        });
-      }
 
       return {user}
     },
