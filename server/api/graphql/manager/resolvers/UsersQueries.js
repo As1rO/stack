@@ -1,16 +1,13 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const UserModel = require('../../../../models/users');
 
 const UsersQueries = {
-  users: async () => {
-
-    return await prisma.user.findMany();
+  users: async (parent, args, context) => {
+    // ...
+    return await UserModel.users();
   },
   user: async (parent, args, context) => {
-
-    return await prisma.user.findUnique({
-      where: { id: parseInt(args.id) },
-    });
+    // ...
+    return await UserModel.user(args.id);
   },
 };
 
