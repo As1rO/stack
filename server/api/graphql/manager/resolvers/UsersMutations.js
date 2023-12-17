@@ -1,5 +1,5 @@
-const { loginUser } = require('../../../../services/login')
-const UserModel = require('../../../../models/users')
+const { loginUser } = require('~/services/login')
+const UserModel = require('~/models/users')
 
 const UsersMutations = {
   createUser: async (_, args) => {
