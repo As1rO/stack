@@ -1,9 +1,9 @@
 const { loginUser } = require('~/services/login')
-const UserModel = require('~/models/users')
+const userController = require('~/controllers/userController')
 
 const UsersMutations = {
   createUser: async (_, args) => {
-    return await UserModel.createUser(args)
+    return await userController.createUser(args)
   },
 
   login: async (_, args) => {
