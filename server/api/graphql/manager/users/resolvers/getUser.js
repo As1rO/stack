@@ -3,11 +3,7 @@ const prisma = new PrismaClient();
 
 const resolvers = {
   Query: {
-    user: async (parent, args, context) => {
-
-      if (!context.user) {
-        throw new Error('unauthenticated');
-      }
+    user: async (parent, args) => {
 
       return await prisma.user.findUnique({
         where: { id: parseInt(args.id) },

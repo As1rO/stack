@@ -1,6 +1,7 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('graphql-tag');
 
 const typeDefs = gql`
+
   type User {
     id: Int!
     email: String!
@@ -16,8 +17,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User!]!
-    user(id: Int!): User!
+    users: [User!]! @auth
+    user(id: Int!): User! @auth
   }
 
   type Mutation {
