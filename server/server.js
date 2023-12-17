@@ -1,4 +1,4 @@
-require('module-alias/register');
+require('module-alias/register')
 const { ApolloServer } = require('@apollo/server')
 const {
   ApolloServerPluginDrainHttpServer,
