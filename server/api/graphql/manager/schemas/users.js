@@ -1,6 +1,6 @@
 const { gql } = require('graphql-tag');
 
-const typeDefs = gql`
+const userSchema = gql`
 
   type User {
     id: Int!
@@ -27,4 +27,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = typeDefs;
+module.exports = userSchema;

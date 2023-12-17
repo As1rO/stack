@@ -1,19 +1,14 @@
-// server/api/graphql/manager/users/graphql.js
-const userSchema = require('./users/schemas/users');
-const userCreate = require('./users/resolvers/createUser');
-const userLogin = require('./users/resolvers/loginUser');
-const getUsers = require('./users/resolvers/getUsers');
-const getUser = require('./users/resolvers/getUser');
+const userSchema = require('./schemas/users');
+const UsersQueries = require('./resolvers/UsersQueries');
+const UsersMutations = require('./resolvers/UsersMutations');
 
 const typeDefs = [userSchema];
 const resolvers = {
   Query: {
-    ...getUsers.Query,
-    ...getUser.Query,
+    ...UsersQueries,
   },
   Mutation: {
-    ...userCreate.Mutation, 
-    ...userLogin.Mutation,
+    ...UsersMutations, 
   },
 };
 
