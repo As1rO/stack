@@ -8,7 +8,7 @@ function checkAuth(req) {
     return null
   }
 
-  const token = authorization.split(' ')[1]
+  const token = authorization.split('Bearer ')[1]
 
   if (!token) {
     return null
