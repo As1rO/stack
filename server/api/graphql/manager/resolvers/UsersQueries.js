@@ -1,14 +1,12 @@
-const UserModel = require('../../../../models/users');
+const UserModel = require('../../../../models/users')
 
 const UsersQueries = {
   users: async (parent, args, context) => {
-    // ...
-    return await UserModel.users();
+    return await UserModel.users()
   },
   user: async (parent, args, context) => {
-    // ...
-    return await UserModel.user(args.id);
+    return await UserModel.user(args.id)
   },
-};
+}
 
-module.exports = UsersQueries;
+module.exports = UsersQueries

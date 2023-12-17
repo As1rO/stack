@@ -1,7 +1,6 @@
-const { gql } = require('graphql-tag');
+const { gql } = require('graphql-tag')
 
 const userSchema = gql`
-
   type User {
     id: Int!
     email: String!
@@ -22,9 +21,15 @@ const userSchema = gql`
   }
 
   type Mutation {
-    createUser(email: String!, firstname: String!, lastname: String!, password: String!, language: String!): User!
+    createUser(
+      email: String!
+      firstname: String!
+      lastname: String!
+      password: String!
+      language: String!
+    ): User!
     login(email: String!, password: String!): AuthPayload!
   }
-`;
+`
 
-module.exports = userSchema;
+module.exports = userSchema

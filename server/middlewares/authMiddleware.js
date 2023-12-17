@@ -1,26 +1,25 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 function checkAuth(req) {
-
-  const authorization = req.headers.authorization || '';
+  const authorization = req.headers.authorization || ''
 
   if (!authorization) {
-     return null;
+    return null
   }
 
-  const token = authorization.split(' ')[1];
+  const token = authorization.split(' ')[1]
 
   if (!token) {
-     return null;
+    return null
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded; 
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    return decoded
   } catch (error) {
-    return null;
+    return null
   }
 }
 
-module.exports = { checkAuth };
+module.exports = { checkAuth }

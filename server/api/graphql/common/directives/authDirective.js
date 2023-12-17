@@ -1,5 +1,5 @@
-const { mapSchema, getDirective, MapperKind } = require('@graphql-tools/utils');
-const { defaultFieldResolver } = require('graphql');
+const { mapSchema, getDirective, MapperKind } = require('@graphql-tools/utils')
+const { defaultFieldResolver } = require('graphql')
 
 function authDirective(directiveName) {
   return {
@@ -7,21 +7,24 @@ function authDirective(directiveName) {
     authDirectiveTransformer: (schema) =>
       mapSchema(schema, {
         [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-          const authDirective = getDirective(schema, fieldConfig, directiveName)?.[0];
+          const authDirective = getDirective(
+            schema,
+            fieldConfig,
+            directiveName
+          )?.[0]
           if (authDirective) {
-            const { resolve = defaultFieldResolver } = fieldConfig;
+            const { resolve = defaultFieldResolver } = fieldConfig
             fieldConfig.resolve = async function (source, args, context, info) {
-            
               if (!context.user) {
-                throw new Error('Non authentifié');
+                throw new Error('Non authentifié')
               }
-              return resolve(source, args, context, info);
-            };
+              return resolve(source, args, context, info)
+            }
           }
-          return fieldConfig;
+          return fieldConfig
         },
       }),
-  };
+  }
 }
 
-module.exports = { authDirective };
+module.exports = { authDirective }

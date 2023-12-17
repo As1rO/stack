@@ -1,15 +1,15 @@
-const userSchema = require('./schemas/users');
-const UsersQueries = require('./resolvers/UsersQueries');
-const UsersMutations = require('./resolvers/UsersMutations');
+const userSchema = require('./schemas/users')
+const UsersQueries = require('./resolvers/UsersQueries')
+const UsersMutations = require('./resolvers/UsersMutations')
 
-const typeDefs = [userSchema];
+const typeDefs = [userSchema]
 const resolvers = {
   Query: {
     ...UsersQueries,
   },
   Mutation: {
-    ...UsersMutations, 
+    ...UsersMutations,
   },
-};
+}
 
-module.exports = { typeDefs, resolvers };
+module.exports = { typeDefs, resolvers }
