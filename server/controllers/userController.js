@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const UserModel = require('../models/users')
 const userValidationSchema = require('../validations/userValidation')
 const validate = require('../utils/validate')
+const { sendWelcomeEmail } = require('../services/email')
 
 const userController = {
   createUser: async (userData) => {
@@ -13,7 +14,11 @@ const userController = {
       ...userData,
       password: hashedPassword,
     }
-    return await UserModel.createUser(newUser)
+    const createdUser = await UserModel.createUser(newUser)
+
+    await sendWelcomeEmail(createdUser.email, createdUser.firstname)
+
+    return createdUser
   },
 }
 
