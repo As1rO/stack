@@ -5,7 +5,7 @@ const UsersQueries = {
     return await UserModel.users()
   },
   user: async (parent, args, context) => {
-    return await UserModel.user(args.id)
+    return await UserModel.user(args.uuid)
   },
 }
 

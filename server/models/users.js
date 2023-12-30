@@ -5,9 +5,9 @@ const UserModel = {
   users: async () => {
     return await prisma.user.findMany()
   },
-  user: async (id) => {
+  user: async (uuid) => {
     return await prisma.user.findUnique({
-      where: { id: parseInt(id) },
+      where: { uuid: uuid },
     })
   },
 

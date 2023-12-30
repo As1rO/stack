@@ -3,11 +3,13 @@ const { gql } = require('graphql-tag')
 const userSchema = gql`
   type User {
     id: Int!
+    uuid: String!
     email: String!
     firstname: String!
     lastname: String!
     password: String!
     language: String!
+    is_admin: Boolean!
   }
 
   type AuthPayload {
@@ -17,7 +19,7 @@ const userSchema = gql`
 
   type Query {
     users: [User!]! @auth
-    user(id: Int!): User! @auth
+    user(uuid: String!): User! @auth
   }
 
   type Mutation {
