@@ -1,17 +1,23 @@
 const sgMail = require('@sendgrid/mail')
+const ejs = require('ejs')
+const fs = require('fs')
+const path = require('path')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-async function sendWelcomeEmail(email, name) {
-  const message = {
-    to: email,
-    from: process.env.SENDGRID_FROM_EMAIL,
-    subject: 'Bienvenue sur Notre Application!',
-    text: `Bonjour ${name}, bienvenue sur notre application!`,
-    html: `<strong>Bonjour ${name}, bienvenue sur notre application!</strong>`,
-  }
-
+async function sendEmail(templatePath, emailData, userEmail, subject) {
   try {
+    const fullPath = path.join(__dirname, templatePath)
+    const template = fs.readFileSync(fullPath, 'utf8')
+    const htmlContent = ejs.render(template, emailData)
+
+    const message = {
+      to: userEmail,
+      from: process.env.SENDGRID_FROM_EMAIL,
+      subject: subject,
+      html: htmlContent,
+    }
+
     await sgMail.send(message)
     console.log('Email envoyé avec succès')
   } catch (error) {
@@ -19,7 +25,8 @@ async function sendWelcomeEmail(email, name) {
     if (error.response) {
       console.error(error.response.body)
     }
+    throw error
   }
 }
 
-module.exports = { sendWelcomeEmail }
+module.exports = { sendEmail }
