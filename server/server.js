@@ -14,6 +14,7 @@ const { checkAuth } = require('./middlewares/authMiddleware')
 const {
   authDirective,
 } = require('./api/graphql/common/directives/authDirective')
+const errorMiddleware = require('./middlewares/errorsMiddleware')
 
 const { authDirectiveTypeDefs, authDirectiveTransformer } =
   authDirective('auth')
@@ -48,6 +49,8 @@ async function startApolloServer() {
       },
     })
   )
+
+  app.use(errorMiddleware)
 
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve))
   console.log(`🚀 Server ready at http://localhost:4000/graphql`)
