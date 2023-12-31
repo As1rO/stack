@@ -3,7 +3,7 @@ const UserModel = require('../models/users')
 const userValidationSchema = require('../validations/userValidation')
 const validate = require('../utils/validate')
 const { sendEmail } = require('../services/email')
-const { welcomeMapper } = require('../emails/welcome')
+const { welcomeMapper } = require('../mappers/emails/welcome')
 
 const userController = {
   createUser: async (userData) => {
