@@ -2,6 +2,7 @@ const sgMail = require('@sendgrid/mail')
 const ejs = require('ejs')
 const fs = require('fs')
 const path = require('path')
+const { EmailError } = require('../errors')
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -25,7 +26,7 @@ async function sendEmail(templatePath, emailData, userEmail, subject) {
     if (error.response) {
       console.error(error.response.body)
     }
-    throw error
+    throw new EmailError('send email error')
   }
 }
 
