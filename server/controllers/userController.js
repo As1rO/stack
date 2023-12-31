@@ -3,7 +3,7 @@ const UserModel = require('../models/users')
 const userValidationSchema = require('../validations/userValidation')
 const validate = require('../utils/validate')
 const { sendEmail } = require('../services/email')
-const { prepareWelcomeData } = require('../emails/welcome')
+const { welcomeMapper } = require('../emails/welcome')
 
 const userController = {
   createUser: async (userData) => {
@@ -17,7 +17,7 @@ const userController = {
     }
     const createdUser = await UserModel.createUser(newUser)
 
-    const emailData = prepareWelcomeData(createdUser)
+    const emailData = welcomeMapper(createdUser)
 
     await sendEmail(
       '../templates/emails/welcome.ejs',

@@ -1,4 +1,4 @@
-function prepareWelcomeData(user) {
+function welcomeMapper(user) {
   console.log(user)
   return {
     firstname: user.firstname,
@@ -7,4 +7,4 @@ function prepareWelcomeData(user) {
   }
 }
 
-module.exports = { prepareWelcomeData }
+module.exports = { welcomeMapper }
