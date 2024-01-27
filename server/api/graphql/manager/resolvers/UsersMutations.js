@@ -14,6 +14,14 @@ const UsersMutations = {
   validateToken: async (_, args) => {
     return await validateToken(args.token)
   },
+
+  requestPasswordReset: async (_, { email }) => {
+    return await userController.requestPasswordReset(email)
+  },
+
+  resetPassword: async (_, { token, newPassword }) => {
+    return await userController.resetPassword(token, newPassword)
+  },
 }
 
 module.exports = UsersMutations

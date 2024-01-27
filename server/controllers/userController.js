@@ -6,6 +6,7 @@ const validate = require('../utils/validate')
 const { sendEmail } = require('../services/email')
 const { generateToken } = require('../utils/generateToken')
 const { welcomeMapper } = require('../mappers/emails/welcome')
+const { resetPasswordMapper } = require('../mappers/emails/resetPassword')
 
 const userController = {
   createUser: async (userData) => {
@@ -30,14 +31,54 @@ const userController = {
     const emailData = welcomeMapper(createdUser, validationToken)
     console.log('emailData', emailData)
 
-    // await sendEmail(
-    //   '../templates/emails/welcome.ejs',
-    //   emailData,
-    //   createdUser.email,
-    //   'Bienvenue sur Notre Application!'
-    // )
+    await sendEmail(
+      '../templates/emails/welcome.ejs',
+      emailData,
+      createdUser.email,
+      'Bienvenue sur Notre Application!'
+    )
 
     return createdUser
+  },
+
+  requestPasswordReset: async (email) => {
+    const user = await UserModel.findByEmail(email)
+    console.log('user', user)
+    if (!user) {
+      throw new Error('Utilisateur non trouvé')
+    }
+
+    const resetToken = generateToken()
+    await tokenModel.createToken({
+      userId: user.id,
+      token: resetToken,
+      type: 'resetPassword',
+      expiresAt: new Date(Date.now() + 3600000), // 1h
+    })
+    const emailData = resetPasswordMapper(resetToken)
+    await sendEmail(
+      '../templates/emails/resetPassword.ejs',
+      emailData,
+      user.email,
+      'Réinitialisation de votre mot de passe'
+    )
+
+    return 'email send'
+  },
+
+  resetPassword: async (token, newPassword) => {
+    const tokenRecord = await tokenModel.findToken(token)
+    if (!tokenRecord || new Date() > tokenRecord.expiresAt) {
+      throw new Error('Token invalide ou expiré')
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(newPassword, salt)
+    await UserModel.updateUserPassword(tokenRecord.userId, hashedPassword)
+
+    await tokenModel.deleteToken(token)
+
+    return 'password updated'
   },
 }
 
