@@ -32,6 +32,7 @@ const userSchema = gql`
       language: String!
     ): User!
     login(email: String!, password: String!): AuthPayload!
+    validateToken(token: String!): String!
   }
 `
 
