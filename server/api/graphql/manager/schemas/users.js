@@ -7,7 +7,6 @@ const userSchema = gql`
     email: String!
     firstname: String!
     lastname: String!
-    password: String!
     language: String!
     is_admin: Boolean!
     isVerified: Boolean
@@ -41,7 +40,7 @@ const userSchema = gql`
       firstname: String
       lastname: String
       language: String
-    ): User!
+    ): User! @auth
   }
 `
 
