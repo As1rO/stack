@@ -67,6 +67,8 @@ const userController = {
   },
 
   resetPassword: async (token, newPassword) => {
+    validate(userValidationSchema.resetPassword, { token, newPassword })
+
     const tokenRecord = await tokenModel.findToken(token)
     if (!tokenRecord || new Date() > tokenRecord.expiresAt) {
       throw new Error('Token invalide ou expiré')
