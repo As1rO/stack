@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs')
 const UserModel = require('../models/users')
+const tokenModel = require('../models/tokens')
 const userValidationSchema = require('../validations/userValidation')
 const validate = require('../utils/validate')
 const { sendEmail } = require('../services/email')
+const { generateToken } = require('../utils/generateToken')
 const { welcomeMapper } = require('../mappers/emails/welcome')
 
 const userController = {
@@ -17,14 +19,23 @@ const userController = {
     }
     const createdUser = await UserModel.createUser(newUser)
 
-    const emailData = welcomeMapper(createdUser)
+    const validationToken = generateToken()
+    await tokenModel.createToken({
+      userId: createdUser.id,
+      token: validationToken,
+      type: 'validation',
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    })
 
-    await sendEmail(
-      '../templates/emails/welcome.ejs',
-      emailData,
-      createdUser.email,
-      'Bienvenue sur Notre Application!'
-    )
+    const emailData = welcomeMapper(createdUser, validationToken)
+    console.log('emailData', emailData)
+
+    // await sendEmail(
+    //   '../templates/emails/welcome.ejs',
+    //   emailData,
+    //   createdUser.email,
+    //   'Bienvenue sur Notre Application!'
+    // )
 
     return createdUser
   },

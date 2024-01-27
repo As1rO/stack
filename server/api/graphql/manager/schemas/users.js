@@ -10,6 +10,7 @@ const userSchema = gql`
     password: String!
     language: String!
     is_admin: Boolean!
+    isVerified: Boolean
   }
 
   type AuthPayload {
