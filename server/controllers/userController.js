@@ -10,7 +10,7 @@ const { resetPasswordMapper } = require('../mappers/emails/resetPassword')
 
 const userController = {
   createUser: async (userData) => {
-    validate(userValidationSchema, userData)
+    validate(userValidationSchema.user, userData)
 
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(userData.password, salt)
@@ -79,6 +79,12 @@ const userController = {
     await tokenModel.deleteToken(token)
 
     return 'password updated'
+  },
+
+  editUser: async (userData) => {
+    validate(userValidationSchema.editUser, userData)
+
+    return await UserModel.updateUser(userData)
   },
 }
 

@@ -37,6 +37,14 @@ const UserModel = {
       data: { password: newPassword },
     })
   },
+
+  updateUser: async (userData) => {
+    const { uuid, ...updateData } = userData
+    return await prisma.user.update({
+      where: { uuid: uuid },
+      data: updateData,
+    })
+  },
 }
 
 module.exports = UserModel

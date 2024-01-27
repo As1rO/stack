@@ -22,6 +22,10 @@ const UsersMutations = {
   resetPassword: async (_, { token, newPassword }) => {
     return await userController.resetPassword(token, newPassword)
   },
+
+  editUser: async (_, args) => {
+    return await userController.editUser(args)
+  },
 }
 
 module.exports = UsersMutations
