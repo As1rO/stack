@@ -1,5 +1,3 @@
-// utils/validationHelpers.js
-
 const Joi = require('joi')
 
 const isEmail = Joi.string().email()
