@@ -1,7 +1,0 @@
-node_modules/
-dist/
-./client/node_modules/
-./client/dist/
-./client/.nuxt/
-./client/.output
-./server/node_modules/

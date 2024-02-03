@@ -1,5 +1,5 @@
-import { getJwtToken, removeJwtToken } from '../utils/local-storage'
 import { useQuery } from '@vue/apollo-composable'
+import { getJwtToken, removeJwtToken } from '../utils/local-storage'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   const jwtToken = getJwtToken()

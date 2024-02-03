@@ -41,8 +41,8 @@
 <script setup>
   import { ref } from 'vue'
   import { useMutation } from '@vue/apollo-composable'
-  import { setJwtToken } from '../utils/local-storage.js'
   import gql from 'graphql-tag'
+  import { setJwtToken } from '../utils/local-storage.js'
 
   const email = ref('')
   const password = ref('')
