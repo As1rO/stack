@@ -1,5 +1,3 @@
-<temperrorlate>
-    <div>
-      error  
-    </div>
-</temperrorlate>
+<template>
+  <div>error</div>
+</template>
