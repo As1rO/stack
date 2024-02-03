@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default async function defineNuxtConfig() {
   const ENV = process.env
-  console.log('ENV', ENV)
   return {
     app: {
       baseURL: ENV.NUXT_URI,
