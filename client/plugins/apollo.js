@@ -1,6 +1,7 @@
-import { from } from '@apollo/client/core'
+import { createHttpLink, from } from '@apollo/client/core'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
+import { createUploadLink } from 'apollo-upload-client'
 import { provideApolloClient } from '@vue/apollo-composable'
 import { getJwtToken } from '../utils/local-storage'
 
@@ -12,8 +13,9 @@ import { getJwtToken } from '../utils/local-storage'
  */
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const runtimeConfig = useRuntimeConfig()
+  const { apiUrl } = runtimeConfig.public
   const { $apollo } = useNuxtApp()
-
   const errorLink = onError((err) => {
     nuxtApp.callHook('apollo:error', err)
   })
@@ -25,10 +27,23 @@ export default defineNuxtPlugin((nuxtApp) => {
       headers: {
         ...headers,
         Authorization: `Bearer ${jwtToken}`,
+        'X-Requested-With': 'XMLHttpRequest',
       },
     }
   })
 
-  $apollo.defaultClient.setLink(from([errorLink, authLink]))
+  const uploadLink = createUploadLink({
+    uri: apiUrl,
+  })
+
+  const httpLink = authLink.concat(
+    createHttpLink({
+      uri: apiUrl,
+    })
+  )
+
+  $apollo.defaultClient.setLink(
+    from([errorLink, authLink, uploadLink, httpLink])
+  )
   provideApolloClient($apollo.defaultClient)
 })

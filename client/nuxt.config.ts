@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default function defineNuxtConfig() {
+export default async function defineNuxtConfig() {
   const ENV = process.env
+  console.log('ENV', ENV)
   return {
     app: {
       baseURL: ENV.NUXT_URI,
@@ -22,13 +23,14 @@ export default function defineNuxtConfig() {
     runtimeConfig: {
       public: {
         env: ENV.NUXT_ENV,
+        apiUrl: ENV.API_URL,
       },
     },
     modules: [['@nuxtjs/apollo']],
     apollo: {
       clients: {
         default: {
-          httpEndpoint: `${ENV.API_URL}/graphql`,
+          httpEndpoint: `${ENV.API_URL}`,
         },
       },
     },
