@@ -25,7 +25,7 @@ export default async function defineNuxtConfig() {
         apiUrl: ENV.API_URL,
       },
     },
-    modules: [['@nuxtjs/apollo']],
+    modules: ['@nuxtjs/apollo', '@nuxt/ui'],
     apollo: {
       clients: {
         default: {

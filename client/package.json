@@ -28,6 +28,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.13.0",
     "@nuxtjs/apollo": "^5.0.0-alpha.6",
     "@nuxtjs/i18n": "^8.0.1",
     "@pinia/nuxt": "^0.5.1",
