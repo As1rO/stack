@@ -1,55 +1,75 @@
-# stack
+# Nuxt 3 Minimal Starter
 
-### Prerequisites
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-- Node.js
-- Yarn (optional, npm can also be used)
-- PostgreSQL
+## Setup
 
-## Installation
-
-To set up the application, follow these steps:
-
-1. Clone the Repository:
+Make sure to install the dependencies:
 
 ```bash
-git clone https://github.com/As1rO/stack.git
+# npm
+npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
-3. cd into the server folder
+## Development Server
+
+Start the development server on `http://localhost:3000`:
 
 ```bash
-cd stack
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
 ```
 
-3. yarn install
+## Production
+
+Build the application for production:
 
 ```bash
-yarn install # or npm install
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+
+# bun
+bun run build
 ```
 
-4. copy and rename the .env.example file to .env and add the necessary environment variables.
+Locally preview production build:
 
 ```bash
-cp .env.example .env
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
 ```
 
-5. Execute Prisma migrations:
-
-```bash
-yarn run migrate
-```
-
-6. Optionally, seed the database with initial data:
-
-```bash
-yarn run seed
-```
-
-7. Start the Server:
-
-```bash
-yarn run dev
-```
-
-After starting the server, you can access the GraphQL API at http://localhost:4000/graphql.
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
