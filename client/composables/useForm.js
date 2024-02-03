@@ -15,7 +15,6 @@ import { useI18n } from 'vue-i18n'
  * @returns {object} - Returns an object containing the form state: `loading`, `error`, `data`, and a `refetch` function to re-fetch data.
  */
 const useForm = (useQuery, query, variables, mapFn) => {
-  const { t: $t } = useI18n()
   const data = ref(null)
 
   const { loading, error, result, refetch } = useQuery(query, variables, {
@@ -23,7 +22,7 @@ const useForm = (useQuery, query, variables, mapFn) => {
   })
 
   watch(result, () => {
-    const mappedData = mapFn(result, $t)
+    const mappedData = mapFn(result)
     data.value = mappedData
   })
 

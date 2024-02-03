@@ -15,7 +15,7 @@ const resetPassword = Joi.object({
 })
 
 const editUser = Joi.object({
-  uuid: v.Joi.string().required(),
+  uuid: Joi.string().required(),
   firstname: v.isFirstname,
   lastname: v.isLastname,
   email: v.isEmail,
