@@ -43,7 +43,6 @@ const userController = {
 
   requestPasswordReset: async (email) => {
     const user = await UserModel.findByEmail(email)
-    console.log('user', user)
     if (!user) {
       throw new Error('Utilisateur non trouvé')
     }

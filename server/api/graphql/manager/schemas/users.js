@@ -17,9 +17,14 @@ const userSchema = gql`
     token: String!
   }
 
+  type VerifyTokenPayload {
+    isValid: Boolean!
+  }
+
   type Query {
     users: [User!]! @auth
     user(uuid: String!): User! @auth
+    verifyToken(token: String!): VerifyTokenPayload
   }
 
   type Mutation {
