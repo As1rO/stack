@@ -61,6 +61,7 @@
   const { mutate: loginMutation, loading } = useMutation(LOGIN_MUTATION)
 
   const login = async () => {
+    if (!email.value || !password.value) return
     try {
       const { data } = await loginMutation({
         email: email.value,
