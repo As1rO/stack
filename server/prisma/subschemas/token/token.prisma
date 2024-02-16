@@ -2,11 +2,11 @@ import { user } from "../user/user.prisma"
 
 model Token {
   id         Int      @id @default(autoincrement())
-  userId     Int      @unique
+  user_id     Int      @unique
   token      String   @unique
   type       String
-  expiresAt  DateTime
-  User       User     @relation(fields: [userId], references: [id])
+  expires_at  DateTime
+  User       User     @relation(fields: [user_id], references: [id])
 
-  @@index([userId])
+  @@index([user_id])
 }

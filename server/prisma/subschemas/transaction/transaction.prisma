@@ -1,0 +1,18 @@
+import { user } from "../user/user.prisma"
+
+model Transaction {
+  transaction_id        Int      @id @default(autoincrement())
+  user_id               Int
+  amount                Float
+  status                String
+  transaction_date      DateTime @default(now())
+  transaction_type      String
+  description           String?
+  currency              String
+  payment_method        String
+  external_transaction_id String?
+  refund_id             Int?
+  User       User     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+}

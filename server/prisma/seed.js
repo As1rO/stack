@@ -7,7 +7,8 @@ async function main() {
   const numberOfUsers = 10
 
   for (let i = 0; i < numberOfUsers; i++) {
-    const rawPassword = faker.internet.password()
+    // const rawPassword = faker.internet.password()
+    const rawPassword = 'test'
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(rawPassword, salt)
 

@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Sat Jan 27 2024 03:12:32 GMT+0100 (heure normale d’Europe centrale)✨
+//🧩Don't Edit this file.✨Generated in Fri Feb 16 2024 20:16:23 GMT+0100 (heure normale d’Europe centrale)✨
 
 generator client {
   provider = "prisma-client-js"
@@ -10,27 +10,45 @@ datasource db {
 }
 
 model Token {
-  id        Int      @id @default(autoincrement())
-  userId    Int      @unique
-  token     String   @unique
-  type      String
-  expiresAt DateTime
-  User      User     @relation(fields: [userId], references: [id])
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  token      String   @unique
+  type       String
+  expires_at DateTime
+  User       User     @relation(fields: [user_id], references: [id])
 
-  @@index([userId])
+  @@index([user_id])
+}
+
+model Transaction {
+  transaction_id          Int      @id @default(autoincrement())
+  user_id                 Int
+  amount                  Float
+  status                  String
+  transaction_date        DateTime @default(now())
+  transaction_type        String
+  description             String?
+  currency                String
+  payment_method          String
+  external_transaction_id String?
+  refund_id               Int?
+  User                    User     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  uuid       String   @unique @default(uuid())
-  email      String   @unique
-  firstname  String
-  lastname   String
-  password   String
-  language   String   @default("EN")
-  is_admin   Boolean  @default(false)
-  isVerified Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Token      Token?
+  id          Int           @id @default(autoincrement())
+  uuid        String        @unique @default(uuid())
+  email       String        @unique
+  firstname   String
+  lastname    String
+  password    String
+  language    String        @default("EN")
+  is_admin    Boolean       @default(false)
+  is_verified Boolean       @default(false)
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  Token       Token?
+  Transaction Transaction[]
 }
