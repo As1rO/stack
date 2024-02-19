@@ -54,10 +54,10 @@ yarn run dev
 
 After starting the server, you can access the GraphQL API at http://localhost:4000/graphql.
 
-8. cd into the clien folder:
+8. cd into the client folder:
 
 ```bash
-cd .. && cd server
+cd .. && cd client
 ```
 
 9. yarn install
