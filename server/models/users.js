@@ -18,6 +18,19 @@ const UserModel = {
     })
   },
 
+  findUserByToken: async (token) => {
+    const user = await prisma.user.findFirst({
+      where: {
+        Tokens: {
+          some: {
+            token: token,
+          },
+        },
+      },
+    })
+    return user
+  },
+
   createUser: async (userData) => {
     return await prisma.user.create({
       data: userData,

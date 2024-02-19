@@ -1,4 +1,4 @@
-//🧩Don't Edit this file.✨Generated in Fri Feb 16 2024 20:16:23 GMT+0100 (heure normale d’Europe centrale)✨
+//🧩Don't Edit this file.✨Generated in Tue Feb 20 2024 00:35:22 GMT+0100 (heure normale d’Europe centrale)✨
 
 generator client {
   provider = "prisma-client-js"
@@ -11,7 +11,7 @@ datasource db {
 
 model Token {
   id         Int      @id @default(autoincrement())
-  user_id    Int      @unique
+  user_id    Int
   token      String   @unique
   type       String
   expires_at DateTime
@@ -21,7 +21,8 @@ model Token {
 }
 
 model Transaction {
-  transaction_id          Int      @id @default(autoincrement())
+  id                      Int      @id @default(autoincrement())
+  uuid                    String   @unique @default(uuid())
   user_id                 Int
   amount                  Float
   status                  String
@@ -49,6 +50,6 @@ model User {
   is_verified Boolean       @default(false)
   created_at  DateTime      @default(now())
   updated_at  DateTime      @updatedAt
-  Token       Token?
+  Tokens      Token[]
   Transaction Transaction[]
 }

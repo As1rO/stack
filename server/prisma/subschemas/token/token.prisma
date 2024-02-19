@@ -1,8 +1,6 @@
-import { user } from "../user/user.prisma"
-
 model Token {
   id         Int      @id @default(autoincrement())
-  user_id     Int      @unique
+  user_id     Int     
   token      String   @unique
   type       String
   expires_at  DateTime

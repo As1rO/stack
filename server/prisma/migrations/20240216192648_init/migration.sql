@@ -11,7 +11,8 @@ CREATE TABLE "Token" (
 
 -- CreateTable
 CREATE TABLE "Transaction" (
-    "transaction_id" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
+    "uuid" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE "Transaction" (
     "external_transaction_id" TEXT,
     "refund_id" INTEGER,
 
-    CONSTRAINT "Transaction_pkey" PRIMARY KEY ("transaction_id")
+    CONSTRAINT "Transaction_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -51,6 +52,9 @@ CREATE UNIQUE INDEX "Token_token_key" ON "Token"("token");
 
 -- CreateIndex
 CREATE INDEX "Token_user_id_idx" ON "Token"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Transaction_uuid_key" ON "Transaction"("uuid");
 
 -- CreateIndex
 CREATE INDEX "Transaction_user_id_idx" ON "Transaction"("user_id");

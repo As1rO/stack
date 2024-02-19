@@ -1,7 +1,6 @@
-import { user } from "../user/user.prisma"
-
 model Transaction {
-  transaction_id        Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
+  uuid                  String   @unique @default(uuid())
   user_id               Int
   amount                Float
   status                String
