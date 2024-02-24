@@ -34,7 +34,7 @@ const transactionSchema = gql`
   }
 
   type Mutation {
-    createTransaction(token: String!, input: TransactionInput!): Transaction
+    createTransaction(input: TransactionInput!): Transaction
     updateTransaction(uuid: String!, input: TransactionInput!): Transaction
     deleteTransaction(uuid: String!): Boolean
   }
