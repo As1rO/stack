@@ -2,8 +2,8 @@
 const transactionController = require('~/controllers/transactionController')
 
 const TransactionMutations = {
-  createTransaction: async (_, { token, input }) => {
-    return await transactionController.createTransaction(token, input)
+  createTransaction: async (_, { input }) => {
+    return await transactionController.createTransaction(input)
   },
   updateTransaction: async (_, { uuid, input }) => {
     return await transactionController.updateTransaction(uuid, input)
