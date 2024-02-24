@@ -12,8 +12,12 @@ const TransactionModel = {
     })
   },
   createTransaction: async (transactionData) => {
+    console.log(transactionData)
     return await prisma.transaction.create({
-      data: transactionData,
+      data: {
+        ...transactionData,
+        user_id: transactionData.user_id,
+      },
     })
   },
 

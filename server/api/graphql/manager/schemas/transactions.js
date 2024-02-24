@@ -4,11 +4,11 @@ const transactionSchema = gql`
   type Transaction {
     id: ID!
     uuid: String!
-    userId: ID!
+    user_id: ID!
     amount: Float!
     status: String!
-    transactionDate: String!
-    transactionType: String!
+    transaction_date: String!
+    transaction_type: String!
     description: String
     currency: String!
     payment_method: String!
@@ -29,14 +29,15 @@ const transactionSchema = gql`
   }
 
   type Query {
-    transactions: [Transaction]
-    transaction(uuid: String!): Transaction
+    transactions: [Transaction] @auth
+    transaction(uuid: String!): Transaction @auth
   }
 
   type Mutation {
-    createTransaction(input: TransactionInput!): Transaction
+    createTransaction(input: TransactionInput!): Transaction @auth
     updateTransaction(uuid: String!, input: TransactionInput!): Transaction
-    deleteTransaction(uuid: String!): Boolean
+      @auth
+    deleteTransaction(uuid: String!): Boolean @auth
   }
 `
 

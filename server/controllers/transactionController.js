@@ -4,20 +4,10 @@ const validate = require('../utils/validate')
 const transactionValidationSchema = require('../validations/transactionValidation')
 
 const transactionController = {
-  createTransaction: async (token, transactionData) => {
-    // validate(transactionValidationSchema.create, transactionData)
+  createTransaction: async (transactionData) => {
+    // validate(transactionValidationSchema.create, transactionData
 
-    const user = await UserModel.findUserByToken(token)
-    if (!user) {
-      throw new Error('Utilisateur non trouvé ou token invalide.')
-    }
-
-    const completeTransactionData = {
-      ...transactionData,
-      userId: user.id,
-    }
-
-    return await TransactionModel.createTransaction(completeTransactionData)
+    return await TransactionModel.createTransaction(transactionData)
   },
 
   updateTransaction: async (uuid, transactionData) => {
