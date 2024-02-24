@@ -7,8 +7,7 @@ const TransactionMutations = {
     if (!context.user) {
       throw new Error('Unauthorized')
     }
-    console.log('e', context.user)
-    const transactionInput = { ...input, user_id: context.user.userId }
+    const transactionInput = { ...input, user_id: context.user.user_id }
     return await transactionController.createTransaction(transactionInput)
   },
   updateTransaction: async (_, { uuid, input }) => {

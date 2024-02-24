@@ -20,7 +20,7 @@ async function loginUser(email, password) {
     throw new ValidationError('Password not match')
   }
 
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, {
     expiresIn: '1h',
   })
 

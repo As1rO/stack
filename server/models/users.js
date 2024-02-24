@@ -37,16 +37,16 @@ const UserModel = {
     })
   },
 
-  updateUserVerification: async (userId, isVerified) => {
+  updateUserVerification: async (user_id, isVerified) => {
     return await prisma.user.update({
-      where: { id: userId },
+      where: { id: user_id },
       data: { isVerified: isVerified },
     })
   },
 
-  updateUserPassword: async (userId, newPassword) => {
+  updateUserPassword: async (user_id, newPassword) => {
     return await prisma.user.update({
-      where: { id: userId },
+      where: { id: user_id },
       data: { password: newPassword },
     })
   },

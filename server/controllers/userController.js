@@ -22,7 +22,7 @@ const userController = {
 
     const validationToken = generateToken()
     await tokenModel.createToken({
-      userId: createdUser.id,
+      user_id: createdUser.id,
       token: validationToken,
       type: 'validation',
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -49,7 +49,7 @@ const userController = {
 
     const resetToken = generateToken()
     await tokenModel.createToken({
-      userId: user.id,
+      user_id: user.id,
       token: resetToken,
       type: 'resetPassword',
       expiresAt: new Date(Date.now() + 3600000), // 1h
@@ -75,7 +75,7 @@ const userController = {
 
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(newPassword, salt)
-    await UserModel.updateUserPassword(tokenRecord.userId, hashedPassword)
+    await UserModel.updateUserPassword(tokenRecord.user_id, hashedPassword)
 
     await tokenModel.deleteToken(token)
 

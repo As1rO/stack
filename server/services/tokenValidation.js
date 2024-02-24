@@ -11,7 +11,7 @@ const tokenValidationService = {
       throw new Error('Token invalide ou expiré')
     }
 
-    await UserModel.updateUserVerification(tokenRecord.userId, true)
+    await UserModel.updateUserVerification(tokenRecord.user_id, true)
     await tokenModel.deleteToken(token)
 
     return 'Compte vérifié avec succès'
