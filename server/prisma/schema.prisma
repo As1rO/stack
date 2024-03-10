@@ -1,4 +1,18 @@
-//🧩Don't Edit this file.✨Generated in Tue Feb 20 2024 00:35:22 GMT+0100 (heure normale d’Europe centrale)✨
+//🧩Don't Edit this file.✨Generated in Sun Mar 10 2024 22:46:48 GMT+0100 (heure normale d’Europe centrale)✨
+model Account {
+  id          Int           @id @default(autoincrement())
+  uuid        String        @unique @default(uuid())
+  user_id     Int
+  name        String
+  description String?
+  currency    String
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+  User        User          @relation(fields: [user_id], references: [id])
+  Transaction Transaction[]
+
+  @@index([user_id])
+}
 
 generator client {
   provider = "prisma-client-js"
@@ -23,7 +37,7 @@ model Token {
 model Transaction {
   id                      Int      @id @default(autoincrement())
   uuid                    String   @unique @default(uuid())
-  user_id                 Int
+  account_id              Int
   amount                  Float
   status                  String
   transaction_date        DateTime @default(now())
@@ -33,23 +47,23 @@ model Transaction {
   payment_method          String
   external_transaction_id String?
   refund_id               Int?
-  User                    User     @relation(fields: [user_id], references: [id])
+  Account                 Account  @relation(fields: [account_id], references: [id])
 
-  @@index([user_id])
+  @@index([account_id])
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  uuid        String        @unique @default(uuid())
-  email       String        @unique
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique @default(uuid())
+  email       String    @unique
   firstname   String
   lastname    String
   password    String
-  language    String        @default("EN")
-  is_admin    Boolean       @default(false)
-  is_verified Boolean       @default(false)
-  created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
+  language    String    @default("EN")
+  is_admin    Boolean   @default(false)
+  is_verified Boolean   @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
   Tokens      Token[]
-  Transaction Transaction[]
+  Account     Account[]
 }

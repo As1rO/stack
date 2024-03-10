@@ -1,4 +1,18 @@
 -- CreateTable
+CREATE TABLE "Account" (
+    "id" SERIAL NOT NULL,
+    "uuid" TEXT NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "currency" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Token" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
@@ -13,7 +27,7 @@ CREATE TABLE "Token" (
 CREATE TABLE "Transaction" (
     "id" SERIAL NOT NULL,
     "uuid" TEXT NOT NULL,
-    "user_id" INTEGER NOT NULL,
+    "account_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
     "transaction_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -45,7 +59,10 @@ CREATE TABLE "User" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Token_user_id_key" ON "Token"("user_id");
+CREATE UNIQUE INDEX "Account_uuid_key" ON "Account"("uuid");
+
+-- CreateIndex
+CREATE INDEX "Account_user_id_idx" ON "Account"("user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Token_token_key" ON "Token"("token");
@@ -57,7 +74,7 @@ CREATE INDEX "Token_user_id_idx" ON "Token"("user_id");
 CREATE UNIQUE INDEX "Transaction_uuid_key" ON "Transaction"("uuid");
 
 -- CreateIndex
-CREATE INDEX "Transaction_user_id_idx" ON "Transaction"("user_id");
+CREATE INDEX "Transaction_account_id_idx" ON "Transaction"("account_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_uuid_key" ON "User"("uuid");
@@ -66,7 +83,10 @@ CREATE UNIQUE INDEX "User_uuid_key" ON "User"("uuid");
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
+ALTER TABLE "Account" ADD CONSTRAINT "Account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Token" ADD CONSTRAINT "Token_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
