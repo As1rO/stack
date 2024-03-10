@@ -5,8 +5,7 @@ const transactionValidationSchema = require('../validations/transactionValidatio
 
 const transactionController = {
   createTransaction: async (transactionData) => {
-    // validate(transactionValidationSchema.create, transactionData
-
+    validate(transactionValidationSchema.create, transactionData)
     return await TransactionModel.createTransaction(transactionData)
   },
 

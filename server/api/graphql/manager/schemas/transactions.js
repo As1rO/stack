@@ -4,7 +4,7 @@ const transactionSchema = gql`
   type Transaction {
     id: ID!
     uuid: String!
-    user_id: ID!
+    account_id: ID!
     amount: Float!
     status: String!
     transaction_date: String!
@@ -17,6 +17,7 @@ const transactionSchema = gql`
   }
 
   input TransactionInput {
+    account_id: ID!
     amount: Float!
     status: String!
     transaction_date: String!
