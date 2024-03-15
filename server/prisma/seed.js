@@ -21,7 +21,6 @@ async function main() {
       },
     })
 
-    // Créer un compte pour chaque utilisateur
     const account = await prisma.account.create({
       data: {
         user_id: user.id,
@@ -30,7 +29,6 @@ async function main() {
       },
     })
 
-    // Créer des transactions pour le compte
     const numberOfTransactions = 15
     for (let j = 0; j < numberOfTransactions; j++) {
       await prisma.transaction.create({
