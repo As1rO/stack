@@ -3,7 +3,6 @@ const accountController = require('~/controllers/accountController')
 
 const AccountMutations = {
   createAccount: async (_, { input }, context) => {
-    // `context` est le 3e argument
     if (!context.user) {
       throw new Error('Unauthorized')
     }
