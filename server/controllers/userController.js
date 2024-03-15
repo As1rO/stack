@@ -29,7 +29,6 @@ const userController = {
     })
 
     const emailData = welcomeMapper(createdUser, validationToken)
-    console.log('emailData', emailData)
 
     await sendEmail(
       '../templates/emails/welcome.ejs',

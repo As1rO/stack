@@ -19,7 +19,7 @@ const AccountSchema = gql`
 
   type Query {
     accounts: [Account] @auth
-    account(uuid: String!): Accounts @auth
+    account(uuid: String!): Account @auth
   }
 
   type Mutation {

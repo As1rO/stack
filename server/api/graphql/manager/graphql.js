@@ -4,7 +4,7 @@ const UsersMutations = require('./resolvers/UsersMutations')
 
 const accountSchema = require('./schemas/accounts')
 const AccountsQueries = require('./resolvers/AccountsQueries')
-const AccountsMutations = require('./resolvers/AccountsMutations')
+const AccountsMutations = require('./resolvers/AccountsMutation')
 
 const transactionSchema = require('./schemas/transactions')
 const TransactionsMutations = require('./resolvers/TransactionsMutations')
