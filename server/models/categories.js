@@ -3,9 +3,15 @@ const prisma = new PrismaClient()
 
 const CategoryModel = {
   findCategoriesByAccountId: async (accountId) => {
-    return prisma.category.findMany({
-      where: { account_id: parseInt(accountId) },
+    const accountCategories = await prisma.AccountCategory.findMany({
+      where: {
+        account_id: parseInt(accountId),
+      },
+      include: {
+        category: true,
+      },
     })
+    return accountCategories.map((ac) => ac.category)
   },
   findCategoryByUuid: async (uuid) => {
     return prisma.category.findUnique({
@@ -16,6 +22,14 @@ const CategoryModel = {
     return prisma.category.create({
       data: {
         ...input,
+        AccountCategory: {
+          create: {
+            account: {
+              connect: { id: accountId },
+            },
+            is_default: false,
+          },
+        },
       },
     })
   },
