@@ -11,6 +11,14 @@ const AccountModel = {
       where: { uuid: uuid },
     })
   },
+
+  accountByUserId: async (user_id) => {
+    //TODO: when multiple accounts are implemented, replace findFirst with findMany
+    return await prisma.account.findFirst({
+      where: { user_id: user_id },
+    })
+    return
+  },
   createAccount: async (accountData) => {
     return await prisma.transaction.create({
       data: {
