@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const categoryModel = {
+const CategoryModel = {
   findCategoriesByAccountId: async (accountId) => {
     return prisma.category.findMany({
       where: { account_id: parseInt(accountId) },
@@ -33,4 +33,4 @@ const categoryModel = {
   },
 }
 
-module.exports = categoryModel
+module.exports = CategoryModel
