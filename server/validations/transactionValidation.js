@@ -26,7 +26,9 @@ const update = Joi.object({
   refund_id: Joi.number().optional(),
 })
 
-module.exports = {
+const transactionValidationSchema = {
   create,
   update,
 }
+
+module.exports = transactionValidationSchema
