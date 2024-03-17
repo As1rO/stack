@@ -1,17 +1,28 @@
-//🧩Don't Edit this file.✨Generated in Sun Mar 10 2024 22:46:48 GMT+0100 (heure normale d’Europe centrale)✨
+//🧩Don't Edit this file.✨Generated in Sun Mar 17 2024 23:27:13 GMT+0100 (heure normale d’Europe centrale)✨
 model Account {
-  id          Int           @id @default(autoincrement())
-  uuid        String        @unique @default(uuid())
-  user_id     Int
-  name        String
-  description String?
-  currency    String
-  created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
-  User        User          @relation(fields: [user_id], references: [id])
-  Transaction Transaction[]
+  id              Int               @id @default(autoincrement())
+  uuid            String            @unique @default(uuid())
+  user_id         Int
+  name            String
+  description     String?
+  currency        String
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  User            User              @relation(fields: [user_id], references: [id])
+  AccountCategory AccountCategory[]
+  Transactions    Transaction[]
 
   @@index([user_id])
+}
+
+model AccountCategory {
+  account_id  Int
+  category_id Int
+  is_default  Boolean  @default(false)
+  account     Account  @relation(fields: [account_id], references: [id])
+  category    Category @relation("AccountCategory", fields: [category_id], references: [id])
+
+  @@id([account_id, category_id])
 }
 
 generator client {
@@ -21,6 +32,19 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Category {
+  id              Int               @id @default(autoincrement())
+  uuid            String            @unique @default(uuid())
+  name            String
+  description     String?
+  icon            String?
+  color           String?
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+  AccountCategory AccountCategory[] @relation(name: "AccountCategory")
+  Transactions    Transaction[]
 }
 
 model Token {
@@ -35,21 +59,24 @@ model Token {
 }
 
 model Transaction {
-  id                      Int      @id @default(autoincrement())
-  uuid                    String   @unique @default(uuid())
+  id                      Int       @id @default(autoincrement())
+  uuid                    String    @unique @default(uuid())
   account_id              Int
+  category_id             Int?
   amount                  Float
   status                  String
-  transaction_date        DateTime @default(now())
+  transaction_date        DateTime  @default(now())
   transaction_type        String
   description             String?
   currency                String
   payment_method          String
   external_transaction_id String?
   refund_id               Int?
-  Account                 Account  @relation(fields: [account_id], references: [id])
+  Account                 Account   @relation(fields: [account_id], references: [id])
+  Category                Category? @relation(fields: [category_id], references: [id])
 
   @@index([account_id])
+  @@index([category_id])
 }
 
 model User {
@@ -65,5 +92,5 @@ model User {
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   Tokens      Token[]
-  Account     Account[]
+  Accounts    Account[]
 }

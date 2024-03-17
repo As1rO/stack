@@ -16,7 +16,6 @@ const CategoryModel = {
     return prisma.category.create({
       data: {
         ...input,
-        account_id: parseInt(accountId),
       },
     })
   },

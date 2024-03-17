@@ -7,6 +7,8 @@ model Category {
   color         String?      
   created_at    DateTime     @default(now())
   updated_at    DateTime     @updatedAt
+  AccountCategory AccountCategory[]  @relation(name: "AccountCategory")
+  Transactions    Transaction[] 
 }
 
 

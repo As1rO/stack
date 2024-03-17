@@ -13,6 +13,29 @@ CREATE TABLE "Account" (
 );
 
 -- CreateTable
+CREATE TABLE "AccountCategory" (
+    "account_id" INTEGER NOT NULL,
+    "category_id" INTEGER NOT NULL,
+    "is_default" BOOLEAN NOT NULL DEFAULT false,
+
+    CONSTRAINT "AccountCategory_pkey" PRIMARY KEY ("account_id","category_id")
+);
+
+-- CreateTable
+CREATE TABLE "Category" (
+    "id" SERIAL NOT NULL,
+    "uuid" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "icon" TEXT,
+    "color" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Token" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
@@ -28,6 +51,7 @@ CREATE TABLE "Transaction" (
     "id" SERIAL NOT NULL,
     "uuid" TEXT NOT NULL,
     "account_id" INTEGER NOT NULL,
+    "category_id" INTEGER,
     "amount" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
     "transaction_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -65,6 +89,9 @@ CREATE UNIQUE INDEX "Account_uuid_key" ON "Account"("uuid");
 CREATE INDEX "Account_user_id_idx" ON "Account"("user_id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Category_uuid_key" ON "Category"("uuid");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Token_token_key" ON "Token"("token");
 
 -- CreateIndex
@@ -77,6 +104,9 @@ CREATE UNIQUE INDEX "Transaction_uuid_key" ON "Transaction"("uuid");
 CREATE INDEX "Transaction_account_id_idx" ON "Transaction"("account_id");
 
 -- CreateIndex
+CREATE INDEX "Transaction_category_id_idx" ON "Transaction"("category_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_uuid_key" ON "User"("uuid");
 
 -- CreateIndex
@@ -86,7 +116,16 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 ALTER TABLE "Account" ADD CONSTRAINT "Account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "AccountCategory" ADD CONSTRAINT "AccountCategory_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AccountCategory" ADD CONSTRAINT "AccountCategory_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Token" ADD CONSTRAINT "Token_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
