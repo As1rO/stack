@@ -8,6 +8,7 @@ const AccountSchema = gql`
     name: String!
     description: String!
     currency: String!
+    transactions: [Transaction]
   }
 
   input AccountInput {

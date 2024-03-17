@@ -11,6 +11,12 @@ const TransactionModel = {
       where: { uuid: uuid },
     })
   },
+
+  transactionsByAccountId: async (accountId) => {
+    return await prisma.transaction.findMany({
+      where: { account_id: parseInt(accountId) },
+    })
+  },
   createTransaction: async (transactionData) => {
     return await prisma.transaction.create({
       data: {

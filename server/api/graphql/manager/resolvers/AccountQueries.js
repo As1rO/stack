@@ -1,12 +1,32 @@
 // transactionResolvers.js
 const AccountModel = require('~/models/accounts')
+const TransactionModel = require('~/models/transactions')
 
 const AccountQueries = {
-  accounts: async () => {
-    return await AccountModel.accounts()
+  account: async (_, { uuid }, context) => {
+    const account = await AccountModel.account(uuid)
+    const transactions = await TransactionModel.transactionsByAccountId(
+      account.id
+    )
+    return {
+      ...account,
+      transactions,
+    }
   },
-  account: async (_, { uuid }) => {
-    return await AccountModel.account(uuid)
+  accounts: async () => {
+    const accounts = await AccountModel.accounts()
+    const accountsWithTransactions = await Promise.all(
+      accounts.map(async (account) => {
+        const transactions = await TransactionModel.transactionsByAccountId(
+          account.id
+        )
+        return {
+          ...account,
+          transactions,
+        }
+      })
+    )
+    return accountsWithTransactions
   },
 }
 
