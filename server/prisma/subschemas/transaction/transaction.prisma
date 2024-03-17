@@ -1,7 +1,8 @@
 model Transaction {
   id        Int      @id @default(autoincrement())
   uuid                  String   @unique @default(uuid())
-  account_id               Int
+  account_id            Int
+  category_id           Int?
   amount                Float
   status                String
   transaction_date      DateTime @default(now())
@@ -11,7 +12,9 @@ model Transaction {
   payment_method        String
   external_transaction_id String?
   refund_id             Int?
-  Account       Account     @relation(fields: [account_id], references: [id])
+  Account               Account     @relation(fields: [account_id], references: [id])
+  Category              Category?   @relation(fields: [category_id], references: [id])
 
   @@index([account_id])
+  @@index([category_id])
 }

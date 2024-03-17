@@ -1,0 +1,9 @@
+model AccountCategory {
+  account_id   Int
+  category_id  Int
+  is_default   Boolean       @default(false)
+  account      Account       @relation(fields: [account_id], references: [id])
+  category     Category      @relation("account_categories", fields: [category_id], references: [id])
+
+  @@id([account_id, category_id])
+}

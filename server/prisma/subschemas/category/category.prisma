@@ -1,0 +1,12 @@
+model Category {
+  id            Int          @id @default(autoincrement())
+  uuid          String       @unique @default(uuid())
+  name          String
+  description   String?
+  icon          String?      
+  color         String?      
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+}
+
+
