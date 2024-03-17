@@ -2,7 +2,7 @@ const { loginUser } = require('~/services/login')
 const userController = require('~/controllers/userController')
 const { validateToken } = require('~/services/tokenValidation')
 
-const UsersMutations = {
+const UserMutations = {
   createUser: async (_, args) => {
     return await userController.createUser(args)
   },
@@ -28,4 +28,4 @@ const UsersMutations = {
   },
 }
 
-module.exports = UsersMutations
+module.exports = UserMutations

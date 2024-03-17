@@ -1,6 +1,6 @@
 const { gql } = require('graphql-tag')
 
-const transactionSchema = gql`
+const TransactionSchema = gql`
   type Transaction {
     id: ID!
     uuid: String!
@@ -42,4 +42,4 @@ const transactionSchema = gql`
   }
 `
 
-module.exports = transactionSchema
+module.exports = TransactionSchema

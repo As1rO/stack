@@ -1,26 +1,32 @@
-const userSchema = require('./schemas/users')
-const UsersQueries = require('./resolvers/UsersQueries')
-const UsersMutations = require('./resolvers/UsersMutations')
+const UserSchema = require('./schemas/user')
+const UserQueries = require('./resolvers/UserQueries')
+const UserMutations = require('./resolvers/UsersMutations')
 
-const accountSchema = require('./schemas/accounts')
-const AccountsQueries = require('./resolvers/AccountsQueries')
-const AccountsMutations = require('./resolvers/AccountsMutation')
+const AccountSchema = require('./schemas/account')
+const AccountQueries = require('./resolvers/AccountQueries')
+const AccountMutations = require('./resolvers/AccountMutation')
 
-const transactionSchema = require('./schemas/transactions')
-const TransactionsMutations = require('./resolvers/TransactionsMutations')
-const TransactionsQuerries = require('./resolvers/TransactionsQuerries')
+const TransactionSchema = require('./schemas/transaction')
+const TransactionMutations = require('./resolvers/TransactionMutations')
+const TransactionQueries = require('./resolvers/TransactionQueries')
 
-const typeDefs = [userSchema, accountSchema, transactionSchema]
+const CategorySchema = require('./schemas/category')
+const CategoryQueries = require('./resolvers/CategoryQueries')
+const CategoryMutations = require('./resolvers/CategoryMutations')
+
+const typeDefs = [UserSchema, AccountSchema, TransactionSchema, CategorySchema]
 const resolvers = {
   Query: {
-    ...UsersQueries,
-    ...TransactionsQuerries,
-    ...AccountsQueries,
+    ...UserQueries,
+    ...TransactionQueries,
+    ...AccountQueries,
+    ...CategoryQueries,
   },
   Mutation: {
-    ...UsersMutations,
-    ...TransactionsMutations,
-    ...AccountsMutations,
+    ...UserMutations,
+    ...TransactionMutations,
+    ...AccountMutations,
+    ...CategoryMutations,
   },
 }
 

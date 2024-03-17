@@ -1,7 +1,7 @@
 const UserModel = require('~/models/users')
 const { verifyToken } = require('~/services/tokenValidation')
 
-const UsersQueries = {
+const UserQueries = {
   users: async (parent, args, context) => {
     return await UserModel.users()
   },
@@ -18,4 +18,4 @@ const UsersQueries = {
   },
 }
 
-module.exports = UsersQueries
+module.exports = UserQueries

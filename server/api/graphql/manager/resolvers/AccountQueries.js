@@ -1,7 +1,7 @@
 // transactionResolvers.js
 const AccountModel = require('~/models/accounts')
 
-const TransactionsMutations = {
+const AccountQueries = {
   accounts: async () => {
     return await AccountModel.accounts()
   },
@@ -10,4 +10,4 @@ const TransactionsMutations = {
   },
 }
 
-module.exports = TransactionsMutations
+module.exports = AccountQueries

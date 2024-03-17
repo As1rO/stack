@@ -1,0 +1,36 @@
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
+
+const categoryModel = {
+  findCategoriesByAccountId: async (accountId) => {
+    return prisma.category.findMany({
+      where: { account_id: parseInt(accountId) },
+    })
+  },
+  findCategoryByUuid: async (uuid) => {
+    return prisma.category.findUnique({
+      where: { uuid },
+    })
+  },
+  createCategory: async (input, accountId) => {
+    return prisma.category.create({
+      data: {
+        ...input,
+        account_id: parseInt(accountId),
+      },
+    })
+  },
+  updateCategory: async (input, uuid) => {
+    return prisma.category.update({
+      where: { uuid },
+      data: input,
+    })
+  },
+  deleteCategory: async (uuid) => {
+    return prisma.category.delete({
+      where: { uuid },
+    })
+  },
+}
+
+module.exports = categoryModel
