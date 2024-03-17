@@ -4,9 +4,10 @@ const { faker } = require('@faker-js/faker')
 const bcrypt = require('bcryptjs')
 
 async function main() {
-  const numberOfUsers = 10
+  const NUMBER_OF_USERS = 10
+  const NUMBER_OF_TRANSACTIONS = 15
 
-  for (let i = 0; i < numberOfUsers; i++) {
+  for (let i = 0; i < NUMBER_OF_USERS; i++) {
     const rawPassword = 'test'
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(rawPassword, salt)
@@ -29,8 +30,7 @@ async function main() {
       },
     })
 
-    const numberOfTransactions = 15
-    for (let j = 0; j < numberOfTransactions; j++) {
+    for (let j = 0; j < NUMBER_OF_TRANSACTIONS; j++) {
       await prisma.transaction.create({
         data: {
           account_id: account.id,
