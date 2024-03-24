@@ -17,7 +17,6 @@ const TransactionSchema = gql`
   }
 
   input TransactionInput {
-    account_id: ID!
     amount: Float!
     status: String!
     transaction_date: String!

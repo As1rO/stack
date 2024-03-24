@@ -1,7 +1,6 @@
 const Joi = require('joi')
 
 const create = Joi.object({
-  account_id: Joi.number().required(),
   amount: Joi.number().required(),
   status: Joi.string().required(),
   transaction_date: Joi.date().required(),
@@ -14,7 +13,6 @@ const create = Joi.object({
 })
 
 const update = Joi.object({
-  account_id: Joi.number().required(),
   amount: Joi.number().optional(),
   status: Joi.string().optional(),
   transaction_date: Joi.date().optional(),

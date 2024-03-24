@@ -1,8 +1,7 @@
 const categoryController = require('~/controllers/categoryController')
 
 const CategoryMutations = {
-  createCategory: (_, { input }, context) =>
-    categoryController.createCategory(input, context.user),
+  createCategory: (_, { input }) => categoryController.createCategory(input),
   updateCategory: (_, { input, uuid }) =>
     categoryController.updateCategory(input, uuid),
   deleteCategory: (_, { uuid }) => categoryController.deleteCategory(uuid),

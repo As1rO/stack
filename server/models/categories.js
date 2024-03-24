@@ -1,11 +1,12 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const { currentUser } = require('../utils/context')
 
 const CategoryModel = {
-  findCategoriesByAccountId: async (accountId) => {
+  findCategoriesByAccountId: async () => {
     const accountCategories = await prisma.AccountCategory.findMany({
       where: {
-        account_id: parseInt(accountId),
+        account_id: currentUser().account_id,
       },
       include: {
         category: true,
@@ -18,14 +19,14 @@ const CategoryModel = {
       where: { uuid },
     })
   },
-  createCategory: async (input, accountId) => {
+  createCategory: async (input) => {
     return prisma.category.create({
       data: {
         ...input,
         AccountCategory: {
           create: {
             account: {
-              connect: { id: accountId },
+              connect: { id: currentUser().account_id },
             },
             is_default: false,
           },

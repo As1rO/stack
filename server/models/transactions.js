@@ -4,7 +4,6 @@ const { currentUser } = require('../utils/context')
 
 const TransactionModel = {
   transactions: async () => {
-    console.log('user', currentUser().account_id)
     return await prisma.transaction.findMany()
   },
 
@@ -17,7 +16,7 @@ const TransactionModel = {
     return await prisma.transaction.create({
       data: {
         ...transactionData,
-        account_id: transactionData.account_id,
+        account_id: currentUser().account_id,
       },
     })
   },
