@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const namespace = require('../utils/clsNamespace')
 
 function checkAuth(req) {
   const authorization = req.headers.authorization || ''
@@ -16,6 +17,8 @@ function checkAuth(req) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+    namespace.set('user', decoded)
 
     req.user = decoded
     return decoded

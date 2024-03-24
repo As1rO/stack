@@ -10,6 +10,7 @@ const http = require('http')
 const cors = require('cors')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { typeDefs, resolvers } = require('./api/graphql/manager/graphql')
+const namespace = require('./utils/clsNamespace')
 const { checkAuth } = require('./middlewares/authMiddleware')
 const {
   authDirective,
@@ -22,6 +23,12 @@ const { authDirectiveTypeDefs, authDirectiveTransformer } =
 async function startApolloServer() {
   const app = express()
   const httpServer = http.createServer(app)
+
+  app.use((req, res, next) => {
+    namespace.run(() => {
+      next()
+    })
+  })
 
   let schema = makeExecutableSchema({
     typeDefs: [authDirectiveTypeDefs, typeDefs],

@@ -1,8 +1,10 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const { currentUser } = require('../utils/context')
 
 const TransactionModel = {
   transactions: async () => {
+    console.log('user', currentUser().account_id)
     return await prisma.transaction.findMany()
   },
 
