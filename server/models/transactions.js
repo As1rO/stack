@@ -4,7 +4,11 @@ const { currentUser } = require('../utils/context')
 
 const TransactionModel = {
   transactions: async () => {
-    return await prisma.transaction.findMany()
+    return await prisma.transaction.findMany({
+      where: {
+        account_id: currentUser().account_id,
+      },
+    })
   },
 
   transaction: async (uuid) => {
