@@ -3,11 +3,19 @@ const prisma = new PrismaClient()
 const { currentUser } = require('../utils/context')
 
 const TransactionModel = {
-  transactions: async () => {
+  transactions: async (orderBy) => {
+    let orderClause = []
+    if (orderBy) {
+      orderClause.push({
+        [orderBy.column]: orderBy.direction.toLowerCase(),
+      })
+    }
+
     return await prisma.transaction.findMany({
       where: {
         account_id: currentUser().account_id,
       },
+      orderBy: orderClause,
     })
   },
 

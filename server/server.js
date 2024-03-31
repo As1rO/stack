@@ -15,10 +15,15 @@ const { checkAuth } = require('./middlewares/authMiddleware')
 const {
   authDirective,
 } = require('./api/graphql/common/directives/authDirective')
+const {
+  orderByDirective,
+} = require('./api/graphql/common/directives/orderByDirective')
 const errorMiddleware = require('./middlewares/errorsMiddleware')
 
 const { authDirectiveTypeDefs, authDirectiveTransformer } =
   authDirective('auth')
+const { orderByDirectiveTypeDefs, orderByDirectiveTransformer } =
+  orderByDirective('orderBy')
 
 async function startApolloServer() {
   const app = express()
@@ -31,11 +36,12 @@ async function startApolloServer() {
   })
 
   let schema = makeExecutableSchema({
-    typeDefs: [authDirectiveTypeDefs, typeDefs],
+    typeDefs: [authDirectiveTypeDefs, orderByDirectiveTypeDefs, typeDefs],
     resolvers,
   })
 
   schema = authDirectiveTransformer(schema)
+  schema = orderByDirectiveTransformer(schema)
 
   const server = new ApolloServer({
     schema,

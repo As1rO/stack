@@ -28,8 +28,24 @@ const TransactionSchema = gql`
     refund_id: Int
   }
 
+  enum SortableColumns {
+    transaction_date
+    amount
+    status
+  }
+
+  enum SortDirection {
+    ASC
+    DESC
+  }
+
+  input OrderByInput {
+    column: SortableColumns!
+    direction: SortDirection!
+  }
+
   type Query {
-    transactions: [Transaction] @auth
+    transactions(orderBy: OrderByInput): [Transaction] @auth
     transaction(uuid: String!): Transaction @auth
   }
 

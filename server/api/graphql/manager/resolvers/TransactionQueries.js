@@ -2,7 +2,7 @@
 const TransactionModel = require('~/models/transactions')
 
 const TransactionQueries = {
-  transactions: async () => {
+  transactions: async (_, { orderBy }) => {
     return await TransactionModel.transactions()
   },
   transaction: async (_, { uuid }) => {
