@@ -44,8 +44,18 @@ const TransactionSchema = gql`
     direction: SortDirection!
   }
 
+  input TransactionFilter {
+    status: String
+    transaction_type: String
+    currency: String
+    payment_method: String
+  }
+
   type Query {
-    transactions(orderBy: OrderByInput): [Transaction] @auth
+    transactions(
+      orderBy: OrderByInput
+      filters: TransactionFilter
+    ): [Transaction] @auth
     transaction(uuid: String!): Transaction @auth
   }
 

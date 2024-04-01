@@ -2,13 +2,16 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const { currentUser } = require('../utils/context')
 const useOrderBy = require('~/utils/useOrderBy')
+const useFilters = require('~/utils/useFilters')
 
 const TransactionModel = {
-  transactions: async (orderBy) => {
+  transactions: async (orderBy, filters) => {
     const orderClause = useOrderBy(orderBy)
+    const whereClause = useFilters(filters)
 
     return await prisma.transaction.findMany({
       where: {
+        ...whereClause,
         account_id: currentUser().account_id,
       },
       orderBy: orderClause,
