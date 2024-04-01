@@ -1,15 +1,11 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const { currentUser } = require('../utils/context')
+const useOrderBy = require('~/utils/useOrderBy')
 
 const TransactionModel = {
   transactions: async (orderBy) => {
-    let orderClause = []
-    if (orderBy) {
-      orderClause.push({
-        [orderBy.column]: orderBy.direction.toLowerCase(),
-      })
-    }
+    const orderClause = useOrderBy(orderBy)
 
     return await prisma.transaction.findMany({
       where: {
@@ -18,7 +14,6 @@ const TransactionModel = {
       orderBy: orderClause,
     })
   },
-
   transaction: async (uuid) => {
     return await prisma.transaction.findUnique({
       where: { uuid: uuid },
