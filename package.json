@@ -13,6 +13,8 @@
     "prettier": "^3.1.0"
   },
   "scripts": {
-    "format": "prettier --write \"**/*.+(js|vue|html|scss|css|json)\""
+    "format": "prettier --write \"**/*.+(js|vue|html|scss|css|json)\"",
+    "start:server" : "cd  ./server && yarn run dev",
+    "start:client" : "cd  ./client && yarn run dev"
   }
 }
