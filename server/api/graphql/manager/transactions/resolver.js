@@ -1,7 +1,17 @@
-// transactionResolvers.js
+const TransactionModel = require('~/models/transactions')
 const transactionController = require('~/controllers/transactionController')
 
-const TransactionMutations = {
+
+const queries = {
+  transactions: async (_, { orderBy, filters }) => {
+    return await TransactionModel.transactions(orderBy, filters)
+  },
+  transaction: async (_, { uuid }) => {
+    return await TransactionModel.transaction(uuid)
+  },
+}
+
+const mutations = {
   createTransaction: async (_, { input }) => {
     return await transactionController.createTransaction(input)
   },
@@ -13,4 +23,4 @@ const TransactionMutations = {
   },
 }
 
-module.exports = TransactionMutations
+module.exports = {queries, mutations}

@@ -1,7 +1,16 @@
-// accountResolvers.js
+const AccountModel = require('~/models/accounts')
 const accountController = require('~/controllers/accountController')
 
-const AccountMutations = {
+const queries = {
+  accounts: async () => {
+    return await AccountModel.accounts()
+  },
+  account: async (_, { uuid }) => {
+    return await AccountModel.account(uuid)
+  },
+}
+
+const mutations = {
   createAccount: async (_, { input }, context) => {
     if (!context.user) {
       throw new Error('Unauthorized')
@@ -17,4 +26,4 @@ const AccountMutations = {
   },
 }
 
-module.exports = AccountMutations
+module.exports = {queries, mutations}
